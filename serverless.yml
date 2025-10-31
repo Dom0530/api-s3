@@ -1,19 +1,18 @@
-org: geraldocolchado
+org: domenicrincon
 service: api-s3
 
 provider:
   name: aws
   runtime: python3.13	
   # Default memory size for functions (default: 256MB)
-  memorySize: 256
+  memorySize: 1024
   timeout: 20
   iam:
-    role: arn:aws:iam::447891120606:role/LabRole
+    role: arn:aws:iam::758228479217:role/LabRole
 
 functions:
   lista_buckets:
     handler: lista_buckets.lambda_handler
-    memorySize: 512
     events:
       - http:
           path: /s3/lista-buckets
@@ -25,6 +24,30 @@ functions:
     events:
       - http:
           path: /s3/bucket/lista-objetos
+          method: post
+          cors: true
+          integration: lambda
+  create_bucket:
+    handler: create_bucket.lambda_handler
+    events:
+      - http:
+          path: /s3/create-bucket
+          method: post
+          cors: true
+          integration: lambda
+  create_folder:
+    handler: create_folder.lambda_handler
+    events:
+      - http:
+          path: /s3/bucket/create_folder
+          method: post
+          cors: true
+          integration: lambda
+  upload_file:
+    handler: upload_file.lambda_handler
+    events:
+      - http:
+          path: /s3/bucket/upload_file
           method: post
           cors: true
           integration: lambda
