@@ -8,7 +8,7 @@ def lambda_handler(event, context):
     bucket_name = event["body"]["bucket_name"]
     folder_name = event["body"]["folder_name"]
     file_name = event["body"]["file_name"]
-    file_content_base64 = ["body"]["file_content"]
+    file_content_base64 = event["body"]["file_content"]
 
     # Proceso
     # Convertir el archivo desde base64
